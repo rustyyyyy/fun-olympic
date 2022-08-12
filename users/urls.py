@@ -7,5 +7,5 @@ urlpatterns = [
     path("emailverify/<int:pk>", EmailVerify.as_view(), name="signup"),
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
-    path("home/", HomeView.as_view(), name="home")
+    path("", HomeView.as_view(), name="home")
 ]
