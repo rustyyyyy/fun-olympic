@@ -10,4 +10,5 @@
 # Cache
 __pycache__/
 
-*.pyc
+main/__pycache__/
+users/__pycache__/
