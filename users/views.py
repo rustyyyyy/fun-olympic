@@ -8,8 +8,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.views import View
-from django.http import HttpResponse
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from users.models import EmailVerification
 from users.forms import CustomUserCreationForm, RegisterForm
@@ -32,7 +30,7 @@ class SignupView(View):
     def get(self, request):
         return render(
             request,
-            "index.html",
+            "auth/index.html",
             {
                 "form": CustomUserCreationForm,
                 "formm": RegisterForm,
@@ -56,7 +54,7 @@ class SignupView(View):
                     return redirect(f"/emailverify/{verification}")
                 return render(
                     request,
-                    "index.html",
+                    "auth/index.html",
                     {"message": "Error in email verification.", "site_key": site_key},
                 )
 
@@ -67,7 +65,7 @@ class SignupView(View):
             )
         return render(
             request,
-            "index.html",
+            "auth/index.html",
             {"message": "Invalid reCAPTCHA. Please try again.", "site_key": site_key},
         )
 
@@ -81,7 +79,7 @@ class EmailVerify(View):
         email = user.user.email
 
         if path == "/signup/":
-            return render(request, "two-steps.html", {"email": email})
+            return render(request, "auth/two-steps.html", {"email": email})
         return redirect("/")
 
     def post(self, request, pk=None):
@@ -98,13 +96,15 @@ class EmailVerify(View):
                 return redirect("/")
 
             return render(
-                request, "two-steps.html", {"message": "Incorrect Otp", "email": email}
+                request,
+                "auth/two-steps.html",
+                {"message": "Incorrect Otp", "email": email},
             )
 
         except:
             return render(
                 request,
-                "two-steps.html",
+                "auth/two-steps.html",
                 {"message": "Error occured while verification.", "email": email},
             )
 
@@ -120,8 +120,8 @@ class LoginView(View):
         form = AuthenticationForm(request, data=request.POST)
 
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
             user = authenticate(username=username, password=password)
 
             if user is not None:
@@ -129,9 +129,9 @@ class LoginView(View):
                 messages.info(request, f"You are now logged in as {username}.")
                 return redirect("home")
             else:
-                messages.error(request,"Invalid username or password.")
+                messages.error(request, "Invalid username or password.")
         else:
-            messages.error(request,"Invalid username or password.")
+            messages.error(request, "Invalid username or password.")
 
         return render(request, "registration/login.html")
 
@@ -140,9 +140,3 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect("login")
-
-
-class HomeView(LoginRequiredMixin, View):
-
-    def get(self, request):
-        return HttpResponse("Here's the text of the web page.")
