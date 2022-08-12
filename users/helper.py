@@ -16,6 +16,7 @@ environ.Env.read_env(env_file)
 
 api_key = env("api_key")
 
+
 def captcha_validation(recaptcha_response=None, secret=None):
     data = {"secret": secret, "response": recaptcha_response}
 

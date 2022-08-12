@@ -35,6 +35,7 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(CustomUser, CustomUserAdmin)
 
+
 @admin.register(EmailVerification)
 class EmailVerification(admin.ModelAdmin):
     model = EmailVerification
