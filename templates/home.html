@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="shortcut icon" href="assets/images/icon.png" />
+
+    <!-- Google Fonts Tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Inria Serif', serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="background-color: #f5f5f5; ">
+        <div class="container py-5 ">
+            <div class="row justify-content-center ">
+                <div class="col-md-10 ">
+
+                    <div class="row no-gutters ">
+                        <div class="col-lg ">
+                            <div class="text-center ">
+                                <script>
+                                    var url = "{% url 'static_image' 1 %}";
+
+                                    var xhrr = new XMLHttpRequest();
+                                    xhrr.open("GET", url);
+
+                                    xhrr.setRequestHeader("Accept", "application/json");
+                                    xhrr.onreadystatechange = function () {
+                                        if (xhrr.readyState === 4) {
+                                            var response = JSON.parse(xhrr.responseText);
+                                            document.getElementById('image_avatar').src = response.image;
+                                        }
+                                    };
+                                    xhrr.send();
+                                </script>
+                                <img  class="img-fluid w-50 rounded-circle " id="image_avatar">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8 ">
+
+                            <div class="mt-4 ">
+                                <h1>Hi, Im Ajul!</h1>
+                                <p class="text-muted ">I love coding, doing research and sharing what I learn with
+                                    others 😉 </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4 mb-5">
+        <div class="text-right">
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="btn text-white btn-lg" style="background:#ed0f0f;"> Logout </a>
+            {% else %}
+            <a href="{% url 'logout' %}" class="btn text-white btn-lg" style="background:#0014ff;"> Login </a>
+            {% endif %}
+
+            <!-- <a href="/login/login.php" class="btn text-white" style="background:#ed0f0f;">  Logout </a> -->
+        </div>
+        <h4> My Projects</h4>
+        <div class="mt-4">
+            <div class="table-responsive-md">
+                <table class="table table-striped" id="myTable" width="100%" cellspacing="1">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>URL</th>
+                            <th>Created At</th>
+                            <th>language</th>
+                        </tr>
+                    </thead>
+                    <tbody id="container">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        var url = "https://api.github.com/users/rustyyyyy/repos";
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+
+        xhr.setRequestHeader("Accept", "application/json");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                // console.log(xhr.status);
+                // console.log(xhr.responseText);
+                var response = JSON.parse(xhr.responseText);
+
+                let html = '';
+                response.forEach(project => {
+                    let htmlSegment = `<tr>
+                                            <td>${project.name} </td>
+                                            <td><a style="color: #1900ff;" href="${project.html_url}">${project.html_url}</a></td>
+                                            <td>${project.created_at} </td>
+                                            <td>${project.language} </td>
+                                        </tr>
+                                    `;
+
+                    html += htmlSegment;
+                });
+                let container = document.getElementById('container');
+                container.innerHTML = html;
+            }
+        };
+
+        xhr.send();
+    </script>
+
+</body>
+
+</html>
