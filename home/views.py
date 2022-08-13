@@ -8,4 +8,4 @@ from django.views import View
 
 class HomeView(LoginRequiredMixin, View):
     def get(self, request):
-        return HttpResponse("Here's the text of the web page.")
+        return render(request, 'home/base.html')

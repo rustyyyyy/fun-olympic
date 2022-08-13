@@ -140,3 +140,11 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect("login")
+
+
+class ForgotPasswordView(View):
+    def get(self, request):
+        return render(request, 'auth/password-reset.html')
+
+    def post(self, request):
+        return render(request, 'auth/password-reset.html')
