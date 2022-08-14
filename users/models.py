@@ -57,3 +57,14 @@ class EmailVerification(models.Model):
 
     def __str__(self):
         return self.user.email
+
+
+
+class UserAvatar(models.Model):
+    user = models.OneToOneField(
+        CustomUser, blank=False, unique=True, on_delete=models.CASCADE, related_name='user_avatar'
+    )
+    avatar = models.ImageField(upload_to ='user/avatar/')
+
+    def __str__(self):
+        return self.user.email
