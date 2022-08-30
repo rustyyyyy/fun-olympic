@@ -4,7 +4,7 @@
 {% block content %}
 
 <!--begin::Container-->
-<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl mt-5">
+<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl mt-10">
     <div class="content flex-row-fluid" id="kt_content">
     </div>
 </div>
@@ -15,30 +15,38 @@
         <div class="row g-5 g-xl-8">
             <!--begin::post-->
 
+            {% for data in page_obj %}
             <div class="col-xl-4">
                 <!--begin::Mixed Widget 5-->
-                <div class="card card-xl-stretch mb-xl-3">
-                    <div class="card-body d-flex flex-column">
-                        <!--begin::Chart-->
-                        <div class="mixed-widget-5-chart card-rounded-top" data-kt-chart-color="success"
-                            style="height: 150px"></div>
-                        <div class="mt-5">
-                            <div class="d-flex flex-stack mb-5">
-                                <div class="d-flex align-items-center me-2">
-                                    <div>
-                                        <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bolder">Top
-                                            Authors</a>
-                                        <div class="fs-7 text-muted fw-bold mt-1">Ricky Hunt, Sandra
-                                            Trepp</div>
+                <a href="#" target="_blank" rel="noopener noreferrer">
+                    <div class="card card-xl-stretch mb-xl-3">
+                        <div class="card-body d-flex flex-column">
+                            <!--begin::video image-->
+                            <img src="{{ data.image.url }}" class="card-img-top">
+                            <!--end::video image-->
+                            <div class="mt-5">
+                                <div class="d-flex flex-stack mb-5">
+                                    <div class="d-flex align-items-center me-2">
+                                        <div>
+                                            <!-- <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bolder">Top
+                                            Authors</a> -->
+                                            <h4 class="fs-6 text-gray-800 text-hover-primary fw-bolder">{{data.title}}
+                                            </h4>
+                                            <!-- <div class="fs-7 text-muted fw-bold mt-1">Ricky Hunt, Sandra
+                                            Trepp</div> -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
-
+            {% endfor %}
             <!--end::post-->
+        </div>
+        <div class="mt-10">
+            {% include 'partials/_pagination.html' %}
         </div>
     </div>
 </div>
