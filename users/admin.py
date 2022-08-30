@@ -36,8 +36,7 @@ class CustomUserAdmin(UserAdmin):
 admin.site.register(CustomUser, CustomUserAdmin)
 
 
-@admin.register(EmailVerification)
-class EmailVerification(admin.ModelAdmin):
+class EmailVerificationAdmin(admin.ModelAdmin):
     model = EmailVerification
     list_display = [
         "user",
@@ -47,8 +46,10 @@ class EmailVerification(admin.ModelAdmin):
         "created_at",
         "updated_at",
     ]
+admin.site.register(EmailVerification, EmailVerificationAdmin)
 
-@admin.register(UserAvatar)
+
+admin.site.register(UserAvatar)
 class UserAvatarAdmin(admin.ModelAdmin):
     model = UserAvatar
     list_display = [

@@ -1,0 +1,49 @@
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <title>Fun Olympics</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="shortcut icon" id="fav-icon" href="" />
+
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700" />
+    <!--end::Fonts-->
+
+    <!--begin::Global Stylesheets Bundle(used by all pages)-->
+    <link href="{% static 'assets/plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <!--end::Global Stylesheets Bundle-->
+
+
+</head>
+<script>
+    var state_xhr = new XMLHttpRequest();
+    state_xhr.open("GET", "{% url 'static-image' 2 %}");
+    state_xhr.onreadystatechange = function () {
+        if (state_xhr.readyState === 4) {
+            result = JSON.parse(state_xhr.responseText);
+            document.getElementById('fav-icon').href = result;
+        }
+    };
+    state_xhr.send();
+</script>
+
+<script>
+    var req_xhr = new XMLHttpRequest();
+    req_xhr.open("GET", "{% url 'static-image' 1 %}");
+    req_xhr.onreadystatechange = function () {
+        if (req_xhr.readyState === 4) {
+            result = JSON.parse(req_xhr.responseText);
+            document.getElementById('olympic-logo').src = result;
+        }
+    };
+    req_xhr.send();
+</script>

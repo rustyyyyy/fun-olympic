@@ -1,25 +1,24 @@
-# from main.settings import TIME_ZONE
-# from operator import mod
-# from django.db import models
-# from users.models import CustomUser
-# # Create your models here.
-
-# class Aurthor(models.Model):
-#     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='aurthor_user')
-
-#     def __str__(self):
-#         return str(self.user.email)
+from main.settings import TIME_ZONE
+from operator import mod
+from django.db import models
+from users.models import CustomUser
+from embed_video.fields import EmbedVideoField
 
 
-# class Post(models.Model):
-#     title = models.CharField(max_length=200, unique=True)
-#     slug = models.SlugField(max_length=200, unique=True)
-#     author = models.ForeignKey(Aurthor, on_delete= models.CASCADE,related_name='post_aurthor')
-#     updated_on = models.DateTimeField(auto_now= True)
-#     content = models.TextField()
-#     created_on = models.DateTimeField(auto_now_add=True)
-#     # status = models.IntegerField(choices=STATUS, default=0)
+class Video(models.Model):
+    user = models.ForeignKey(CustomUser,
+                on_delete= models.CASCADE,related_name='post_aurthor')
+    title = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='images/')
 
-#     upload_date = models.DateTimeField(default=TIME_ZONE.now)
-#     video = models.FileField(upload_to='')
+    video_link = EmbedVideoField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.title
+
+# class Comment(models.Model):
+#     video = models.ForeignKey(Video, on_delete=models.CASCADE)
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     comment = models.TextField()
+#     created_at = models.DateTimeField(auto_now_add=True)
