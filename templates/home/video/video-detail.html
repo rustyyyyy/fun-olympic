@@ -1,0 +1,88 @@
+{% extends "home/base.html" %}
+{% load embed_video_tags %}
+{% load static %}
+
+{% block content %}
+
+<!--begin::Container-->
+<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl mt-15">
+    <div class="content flex-row-fluid" id="kt_content">
+    </div>
+</div>
+<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl mb-15">
+    <!--begin::Post-->
+    <div class="content flex-row-fluid" id="kt_content">
+        <!--begin::Row-->
+        <!-- <div class="row g-5 g-xl-8"> -->
+        <!--begin::post-->
+
+        {% comment %}
+
+        {% for data in page_obj %}
+        <div class="col-xl-4">
+            <!--begin::Mixed Widget 5-->
+            <a href="{% url 'video-detail' data.id %}">
+                <div class="card card-xl-stretch mb-xl-3">
+                    <div class="card-body d-flex flex-column">
+                        <!--begin::video image-->
+                        <img src="{{ data.image.url }}" class="card-img-top">
+                        <!--end::video image-->
+                        <div class="mt-5">
+                            <div class="d-flex flex-stack mb-5">
+                                <div class="d-flex align-items-center me-2">
+                                    <div>
+                                        <!-- <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bolder">Top
+                                            Authors</a> -->
+                                        <h4 class="fs-6 text-gray-800 text-hover-primary fw-bolder">{{data.title}}
+                                        </h4>
+                                        <!-- <div class="fs-7 text-muted fw-bold mt-1">Ricky Hunt, Sandra
+                                            Trepp</div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+        {% endcomment %}
+        <!--end::post-->
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card shadow-sm">
+                    {% video video.video_link '100%x500' %}
+                </div>
+                <div class="mt-5">
+                    <p style="font-size: 22px;">{{video.title}}</p>
+                    <div class="d-flex justify-content">
+                        <p class="mb-0">121 views&nbsp;&nbsp;&nbsp;</p>
+                        <p class="mb-0">{{video.created_at|date:"M d, Y"}}</p>
+                    </div>
+                    <p class="mt-3" style="font-size: 18px;">
+                        Comments
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="pl-5">
+                    <div class="">
+                        {% for video in videos %}
+                        <a href="{% url 'video-detail' video.id %}">
+                            <div class="mb-5">
+                                <img src="{{video.image.url}}" width="60%">
+                                <p class="mt-2">
+                                    {{video.title}}
+                                </p>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

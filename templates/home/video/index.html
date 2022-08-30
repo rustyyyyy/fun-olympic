@@ -18,7 +18,7 @@
             {% for data in page_obj %}
             <div class="col-xl-4">
                 <!--begin::Mixed Widget 5-->
-                <a href="#" target="_blank" rel="noopener noreferrer">
+                <a href="{% url 'video-detail' data.id %}">
                     <div class="card card-xl-stretch mb-xl-3">
                         <div class="card-body d-flex flex-column">
                             <!--begin::video image-->

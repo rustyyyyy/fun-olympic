@@ -39,11 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # packages
     'zxcvbn_password',
     'rest_framework',
+    'embed_video',
+
+    # apps
     'users',
     'config',
     'home',
+
 ]
 
 MIDDLEWARE = [
