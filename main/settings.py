@@ -44,12 +44,12 @@ INSTALLED_APPS = [
     'zxcvbn_password',
     'rest_framework',
     'embed_video',
+    'crispy_forms',
 
     # apps
     'users',
     'config',
     'home',
-
 ]
 
 MIDDLEWARE = [

@@ -62,7 +62,7 @@ class EmailVerification(models.Model):
 
 class UserAvatar(models.Model):
     user = models.OneToOneField(
-        CustomUser, blank=False, unique=True, on_delete=models.CASCADE, related_name='user_avatar'
+        CustomUser, blank=False, unique=True, on_delete=models.CASCADE, related_name='avatar_user'
     )
     avatar = models.ImageField(upload_to ='user/avatar/')
 

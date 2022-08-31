@@ -1,0 +1,7 @@
+{% for comment in comments %}
+<span class="mb-0">
+    <p style="display: inline; font-size: 18px;">
+        {{comment.user.username}}&nbsp;&nbsp;</p>
+        {{comment.update_at}}</span>
+<p class="mt-1" style="font-size: 15px;">{{comment.comment}}</p>
+{% endfor %}
