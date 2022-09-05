@@ -9,20 +9,23 @@ from .models import Video, Views, Comment, Like
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from .forms import CommentForm
+from django.db.models import Q
+
+from config.models import Categories
 
 
 # class HomeView(LoginRequiredMixin, View):
 class HomeView(View):
     def get(self, request):
-        videos = Video.objects.all()
+        # videos = Video.objects.all()
 
-        paginator = Paginator(videos, 6)
+        # paginator = Paginator(videos, 6)
 
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
+        # page_number = request.GET.get('page')
+        # page_obj = paginator.get_page(page_number)
 
         context = {
-            'page_obj': page_obj
+            # 'page_obj': page_obj
         }
         return render(request, 'home/home.html', context)
 
@@ -154,14 +157,25 @@ class DislikeView(View):
 
 class VideoView(View):
     def get(self, request):
+
         videos = Video.objects.all()
+
+        q = self.request.GET.get('q')
+
+        if q is not None:
+            videos = Video.objects.filter(
+                Q(title__icontains=q) |
+                Q(category__name__contains=q)
+            )
 
         paginator = Paginator(videos, 6)
 
         page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
+        obj = paginator.get_page(page_number)
 
+        categories = Categories.objects.all()
         context = {
-            'page_obj': page_obj
+            'page_obj': obj,
+            'categories' : categories
         }
         return render(request, 'home/video/index.html', context)

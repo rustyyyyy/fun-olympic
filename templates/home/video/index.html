@@ -4,17 +4,34 @@
 {% block content %}
 
 <!--begin::Container-->
-<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl mt-10">
+<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl my-10">
     <div class="content flex-row-fluid" id="kt_content">
+        <div class="text-center">
+            <form class="form-inline d-block" action="" method="get">
+                <input type="text" class="form-control mr-4 py-6" style="width: 600px;" name="q">
+                <button style="padding: 0px; border: 0px; background-color: #fff;" type="submit">
+                    <i class="fas fa-search fa-2x"></i>
+                </button>
+            </form>
+            <div class="dropdown mt-10">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Category
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu text-center">
+                    {% for obj in categories %}
+                    <li><a href="{% url 'video' %}?q={{obj.name}}">{{obj.name}}</a></li>
+                    {% endfor %}
+                </ul>
+              </div>
+        </div>
     </div>
 </div>
-<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
+<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl mt-8">
     <!--begin::Post-->
     <div class="content flex-row-fluid" id="kt_content">
+        {% if page_obj %}
         <!--begin::Row-->
         <div class="row g-5 g-xl-8">
             <!--begin::post-->
-
             {% for data in page_obj %}
             <div class="col-xl-4">
                 <!--begin::Mixed Widget 5-->
@@ -25,8 +42,8 @@
                             <img src="{{ data.image.url }}" class="card-img-top">
                             <!--end::video image-->
                             <div class="mt-5">
-                                <div class="d-flex flex-stack mb-5">
-                                    <div class="d-flex align-items-center me-2">
+                                <div class="d-flex align-items-end ">
+                                    <div class="d-flex align-self-center me-2">
                                         <div>
                                             <!-- <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bolder">Top
                                             Authors</a> -->
@@ -43,11 +60,17 @@
                 </a>
             </div>
             {% endfor %}
+
             <!--end::post-->
         </div>
+        
         <div class="mt-10">
             {% include 'partials/_pagination.html' %}
         </div>
+        {% else %}
+        <p class="text-center" style="font-size: 45px;"> Videos not available </p>
+        {% endif %}
+
     </div>
 </div>
 
