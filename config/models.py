@@ -1,3 +1,5 @@
+from hashlib import blake2b
+from tabnanny import verbose
 from django.db import models
 from users.models import CustomUser
 
@@ -20,3 +22,14 @@ class StaticImage(models.Model):
     
     def __str__(self):
         return self.name
+
+class Categories(models.Model):
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Categories"

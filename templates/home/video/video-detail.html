@@ -61,8 +61,28 @@
                         <p class="mb-0">{{video.created_at|date:"M d, Y"}}</p>
                     </div>
                     <div class="mt-7">
-                        <i class="fas fa-thumbs-up fa-2x mr-4"></i>
-                        <i class="far fa-thumbs-down fa-2x"></i>
+
+                        <span class="mr-4">
+                            <a href="#" target="_blank" hx-post="{% url 'like-add' pk %}" hx-target="#like-count">
+                                <i class="fas fa-thumbs-up fa-2x">&nbsp;</i>
+                            </a>
+                            <!-- like count  -->
+                            <span id="like-count">
+                                {% include 'home/video/like.html' %}
+                            </span>
+                        </span>
+                        
+                        <span class="mr-4">
+                            <a href="#" target="_blank" hx-post="{% url 'dislike-add' pk %}" hx-target="#dislike-count">
+                                <i class="far fa-thumbs-down fa-2x">&nbsp;</i>
+                            </a>
+                            <!-- dislike count  -->
+                            <span id="dislike-count">
+                                {% include 'home/video/dislike.html' %}
+                            </span>
+                        </span>
+
+
                     </div>
                     <p class="mt-8" style="font-size: 18px;">
                         Comments
@@ -94,6 +114,9 @@
             </div>
             <div class="col-md-3">
                 <div class="pl-5">
+                    <div class="mb-5">
+                        <p style="font-size: 18px; letter-spacing: 1px;">{{title}} videos</p>
+                    </div>
                     <div class="">
                         {% for video in videos %}
                         <a href="{% url 'video-detail' video.id %}">

@@ -2,7 +2,7 @@
 
 {% include "partials/_head.html" %}
 
-<body id="kt_body" style="background-color: white;" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled">
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' id="kt_body" style="background-color: white;" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled">
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
