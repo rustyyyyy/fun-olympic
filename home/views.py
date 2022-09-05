@@ -24,7 +24,7 @@ class HomeView(View):
         context = {
             'page_obj': page_obj
         }
-        return render(request, 'home/video/index.html', context)
+        return render(request, 'home/home.html', context)
 
 
 class VideoDetailView(View):
@@ -150,3 +150,18 @@ class DislikeView(View):
             'dislike':like, 
         }
         return render(request, 'home/video/dislike.html', context)
+
+
+class VideoView(View):
+    def get(self, request):
+        videos = Video.objects.all()
+
+        paginator = Paginator(videos, 6)
+
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        context = {
+            'page_obj': page_obj
+        }
+        return render(request, 'home/video/index.html', context)
