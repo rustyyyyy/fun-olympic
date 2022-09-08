@@ -90,4 +90,17 @@ class Gallery(models.Model):
     image = models.ImageField(upload_to='gallery/images/')
 
     def __str__(self):
-        return str(self.title) 
+        return str(self.title)
+
+class Athelete(models.Model):
+    name = models.CharField(max_length=225, null=True)
+    description = models.TextField(max_length=225, null=True)
+    category = models.ForeignKey(Categories, on_delete=models.DO_NOTHING)
+    dob = models.CharField(max_length=255, null=True)
+    firstgame = models.DateField(null=True)
+    participants = models.CharField(max_length=255, null=True)
+    team = models.CharField(max_length=255, null=True)
+    image = models.ImageField(upload_to='athelete/images/')
+
+    def __str__(self):
+        return str(self.name)

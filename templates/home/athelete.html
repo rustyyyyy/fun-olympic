@@ -1,0 +1,58 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-15 mb-20">
+    <div class="row">
+        {% for obj in obj %}
+        <div class="col-4">
+            <div class="card">
+                <a href="#" data-toggle="modal" data-target="#myModal">
+                    <div class="card-body">
+                        <img src="{{obj.image.url}}">
+                        <div class="mt-4">
+                            <p style="font-size: 18px;" class="p-0 m-0">
+                                {{obj.name}}
+                            </p>
+                            <p class="p-0 m-0">
+                                {{obj.team}}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{obj.name}}</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-4 text-center"> 
+                            <img src="{{obj.image.url}}" alt="" srcset="">
+                        </div>
+                        <p>{{obj.description}}</p>
+                        <p><b>Category:</b> {{obj.category}}</p>
+                        <p><b>Date of Birth:</b> {{obj.dob}}</p>
+                        <p><b>First Olympic Games:</b> {{obj.firstgame}}</p>
+                        <p><b>Games Participations:</b> {{obj.participants}}</p>
+                        <p><b>Team:</b> {{obj.team}}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

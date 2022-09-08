@@ -11,7 +11,7 @@ from django.views import View
 from config.models import Categories
 
 from .forms import CommentForm
-from .models import Comment, Features, Like, Video, Views, Schedule, Gallery
+from .models import Comment, Features, Like, Video, Views, Schedule, Gallery, Athelete
 
 
 # class HomeView(LoginRequiredMixin, View):
@@ -195,3 +195,8 @@ class VideoView(LoginRequiredMixin, View):
 class AboutView(View):
     def get(self, request):
         return render(request, 'home/about.html', {})
+
+class AtheletesView(View):
+    def get(self, request):
+        obj = Athelete.objects.all()
+        return render(request, 'home/athelete.html', {'obj':obj})

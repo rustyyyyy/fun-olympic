@@ -57,7 +57,7 @@ def email_verification(email=None):
 
     response = requests.post(url, headers=headers, data=json.dumps(data))
 
-    print(response)
+    # print(response)
 
     if response.status_code == 201:
         user = CustomUser.objects.get(email=email)

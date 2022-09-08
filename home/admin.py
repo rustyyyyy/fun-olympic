@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import(
-    Video, Views, Comment, Like, Features, Schedule, Gallery)
+    Video, Views, Comment, Like, Features, Schedule, Gallery,
+    Athelete)
 
 
 @admin.register(Video)
@@ -41,3 +42,8 @@ class ScheduleAdmin(admin.ModelAdmin):
 class GalleryAdmin(admin.ModelAdmin):
     model = Gallery
     list_display = ["title", "id"]
+
+@admin.register(Athelete)
+class AtheleteAdmin(admin.ModelAdmin):
+    model = Athelete
+    list_display = ["name", "id"]

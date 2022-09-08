@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import (DislikeView, GalleryView, HomeView, ScheduleView,
-                    VideoAddView, VideoDetailView, VideoView, likeView,AboutView)
+                    VideoAddView, VideoDetailView, VideoView, likeView, AboutView, AtheletesView)
 
 urlpatterns = [
     # nav urls
@@ -9,6 +9,7 @@ urlpatterns = [
     path("gallery", GalleryView.as_view(), name="gallery"),
     path("schedule", ScheduleView.as_view(), name="schedule"),
     path("about", AboutView.as_view(), name="about"),
+    path("atheletes", AtheletesView.as_view(), name="atheletes"),
     # video urls
     path("videos/", VideoView.as_view(), name="video"),
     path("videos/<int:pk>/", VideoDetailView.as_view(), name="video-detail"),
