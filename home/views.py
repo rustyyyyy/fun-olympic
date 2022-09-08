@@ -1,36 +1,48 @@
 from urllib import request
-from django.shortcuts import render
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
+from django.db.models import Q
 # Create your views here.
 from django.http import HttpResponse
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, render
 from django.views import View
-from .models import Video, Views, Comment, Like
-from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404
-from .forms import CommentForm
-from django.db.models import Q
 
 from config.models import Categories
+
+from .forms import CommentForm
+from .models import Comment, Features, Like, Video, Views, Schedule, Gallery
 
 
 # class HomeView(LoginRequiredMixin, View):
 class HomeView(View):
     def get(self, request):
-        # videos = Video.objects.all()
-
-        # paginator = Paginator(videos, 6)
-
-        # page_number = request.GET.get('page')
-        # page_obj = paginator.get_page(page_number)
+        feat = Features.objects.all()
 
         context = {
-            # 'page_obj': page_obj
+            'feat': feat
         }
         return render(request, 'home/home.html', context)
 
 
-class VideoDetailView(View):
+class ScheduleView(LoginRequiredMixin, View):
+    def get(self, request):
+        data = Schedule.objects.all()
+        context ={
+            "obj" : data
+        }
+        return render(request, 'home/schedule.html', context)
+
+class GalleryView(LoginRequiredMixin, View):
+    def get(self, request):
+        post = Gallery.objects.all()
+        context ={
+            "post": post
+        }
+        return render(request, 'home/gallery.html', context)
+
+
+class VideoDetailView(LoginRequiredMixin, View):
 
     def get(self, request, pk=None):
         video = get_object_or_404(Video, id=pk)
@@ -41,8 +53,8 @@ class VideoDetailView(View):
         except Exception:
             count = Views.objects.create(video=video)
 
-        # count.count += 1
-        # count.save()
+        count.count += 1
+        count.save()
 
         title = "Similar"
         videos = Video.objects.filter(
@@ -74,7 +86,7 @@ class VideoDetailView(View):
         return render(request, 'home/video/video-detail.html', context)
 
 
-class VideoAddView(View):
+class VideoAddView(LoginRequiredMixin, View):
 
     def post(self, request, pk=None):
 
@@ -97,7 +109,7 @@ class VideoAddView(View):
         }
         return render(request, 'home/video/comment.html', context)
 
-class likeView(View):
+class likeView(LoginRequiredMixin, View):
     def post(self, request, pk=None):
         user = request.user
 
@@ -126,7 +138,7 @@ class likeView(View):
         return render(request, 'home/video/like.html', context)
 
 
-class DislikeView(View):
+class DislikeView(LoginRequiredMixin, View):
     def post(self, request, pk=None):
         user = request.user
 
@@ -155,7 +167,7 @@ class DislikeView(View):
         return render(request, 'home/video/dislike.html', context)
 
 
-class VideoView(View):
+class VideoView(LoginRequiredMixin, View):
     def get(self, request):
 
         videos = Video.objects.all()
@@ -179,3 +191,7 @@ class VideoView(View):
             'categories' : categories
         }
         return render(request, 'home/video/index.html', context)
+
+class AboutView(View):
+    def get(self, request):
+        return render(request, 'home/about.html', {})

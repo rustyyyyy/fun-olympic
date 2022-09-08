@@ -1,5 +1,6 @@
+from pyexpat import model
 from statistics import mode
-from turtle import update
+from turtle import title, update
 from unicodedata import category
 from main.settings import TIME_ZONE
 from operator import mod
@@ -61,3 +62,32 @@ class Like(models.Model):
 
     def __str__(self):
         return str(self.video.title)
+
+
+class Features(models.Model):
+    title = models.CharField(max_length=225, null=True)
+    image = models.ImageField(upload_to='feat/images/')
+
+    def __str__(self):
+        return str(self.title)
+
+    class Meta:
+        verbose_name_plural = "Features"
+
+
+class Schedule(models.Model):
+    category = models.ForeignKey(
+        Categories, on_delete=models.DO_NOTHING)
+    date = models.DateField()
+    time = models.TimeField()
+    teams = models.CharField(max_length=224)
+
+    def __str__(self):
+        return str(self.category.name)
+
+class Gallery(models.Model):
+    title = models.CharField(max_length=225, null=True)
+    image = models.ImageField(upload_to='gallery/images/')
+
+    def __str__(self):
+        return str(self.title) 

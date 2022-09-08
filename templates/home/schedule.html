@@ -1,0 +1,27 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-15 mb-10">
+        <table class="table table-stripped" style='text-align:center; vertical-align:middle'>
+            <thead>
+                <tr>
+                    <th scope="col">Game</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Team</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in obj %}
+                <tr>
+                    <td>{{data.category.name}}</td>
+                    <td>{{data.date}}</td>
+                    <td>{{data.time}}</td>
+                    <td>{{data.teams}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+{% endblock %}

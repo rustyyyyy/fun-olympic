@@ -2,4 +2,44 @@
 {% load static %}
 
 {% block content %}
+
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/media/static/img/Untitled-1.png" class="bi" width="100%" height="100%" />
+            <div class="">
+                <div class="carousel-caption text-start">
+                    <h1 class="text-white mb-5">Fun Olympic Game</h1>
+                    {% if request.user.is_authenticated %}
+                    <p><a class="btn btn-lg btn-primary" href="{% url 'video' %}">Let's have fun</a></p>
+                    {% else %}
+                    <p><a class="btn btn-lg btn-primary" href="{% url 'signup' %}">Register today</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-15 mb-10">
+    <div class="container">
+        <h4 style="font-size: 32px;">Features</h4>
+        <div class="mt-8">
+            <div class="row">
+                {% for data in feat %}
+                <div class="col-4">
+                    <div style="position: relative;">
+                        <img src="{{data.image.url}}" alt="" srcset="" class="rounded" width="90%">
+                        <p class="text-white" style="font-weight: bold;  position: absolute; font-size: 20px; bottom: 8px; left: 16px;">
+                            {{data.title}}
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}
