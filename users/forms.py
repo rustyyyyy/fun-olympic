@@ -6,6 +6,7 @@ from django.utils.translation import gettext as _
 from pyexpat import model
 from zxcvbn_password import zxcvbn
 from zxcvbn_password.fields import PasswordConfirmationField, PasswordField
+from django_countries.fields import CountryField
 
 from .models import CustomUser
 
@@ -87,4 +88,11 @@ class RegisterForm(forms.Form):
 
     password1.widget.attrs.update(
         {"class": "form-control form-control-lg form-control-solid", "placeholder": ""}
+    )
+
+class CountryForm(forms.Form):
+    country = CountryField().formfield(label="Country")
+
+    country.widget.attrs.update(
+        {"class": "form-control form-control-lg form-control-solid mb-6", "placeholder": ""}
     )

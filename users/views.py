@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.views import View
 
 from users.models import EmailVerification
-from users.forms import CustomUserCreationForm, RegisterForm
+from users.forms import CustomUserCreationForm, RegisterForm, CountryForm
 from users.helper import captcha_validation, email_verification
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,6 +34,7 @@ class SignupView(View):
             {
                 "form": CustomUserCreationForm,
                 "formm": RegisterForm,
+                "countryform" : CountryForm,
                 "site_key": site_key,
             },
         )
