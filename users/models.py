@@ -68,3 +68,11 @@ class UserAvatar(models.Model):
 
     def __str__(self):
         return self.user.email
+
+class Notification(models.Model):
+    user = models.ForeignKey(CustomUser,
+        on_delete=models.CASCADE, related_name="user_noti")
+    msg = models.TextField(max_length=255, null=True, blank=True)
+    
+    def __str__(self):
+        return self.user.email

@@ -1,3 +1,4 @@
+import email
 import os
 from pathlib import Path
 from urllib import parse
@@ -9,7 +10,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.views import View
 
-from users.models import EmailVerification
+from users.models import CustomUser, EmailVerification
 from users.forms import CustomUserCreationForm, RegisterForm, CountryForm
 from users.helper import captcha_validation, email_verification
 
@@ -123,7 +124,23 @@ class LoginView(View):
         if form.is_valid():
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
+
+
             user = authenticate(username=username, password=password)
+
+            if user.is_staff != True:
+                try:
+                    
+                    email_verify = get_object_or_404(EmailVerification, user=user)
+                    if email_verify.verified != True:
+                        logout(request)
+                        messages.error(
+                            request, "Verify your email by clicking forgot password")
+                        return render(request, "registration/login.html")
+                except Exception:
+                        messages.error(
+                            request, "Verify your email by clicking forgot password")
+                        return render(request, "registration/login.html")
 
             if user is not None:
                 login(request, user)
@@ -148,4 +165,12 @@ class ForgotPasswordView(View):
         return render(request, 'auth/password-reset.html')
 
     def post(self, request):
+        email = request.POST.get('email')
+        
+        try:
+            user = get_object_or_404(CustomUser, email=email)
+            messages.success(request, "Password reset sucessfully requested! try to login")
+        except Exception:
+            messages.error(request, "Invalid email")
+
         return render(request, 'auth/password-reset.html')

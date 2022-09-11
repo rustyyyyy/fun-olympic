@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserChangeForm, CustomUserCreationForm
-from .models import CustomUser, EmailVerification, UserAvatar
+from .models import CustomUser, EmailVerification, UserAvatar, Notification
 
 
 class CustomUserAdmin(UserAdmin):
@@ -52,6 +52,15 @@ admin.site.register(EmailVerification, EmailVerificationAdmin)
 admin.site.register(UserAvatar)
 class UserAvatarAdmin(admin.ModelAdmin):
     model = UserAvatar
+    list_display = [
+        "user",
+        "id",
+    ]
+
+
+admin.site.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    model = Notification
     list_display = [
         "user",
         "id",
