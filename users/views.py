@@ -1,5 +1,3 @@
-import email
-from multiprocessing import context
 import os
 from pathlib import Path
 from urllib import parse
@@ -11,8 +9,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.views import View
 
-from users.models import CustomUser, EmailVerification
-from users.forms import CustomUserCreationForm, RegisterForm, CountryForm
+from users.models import CustomUser, EmailVerification, UserAvatar
+from users.forms import CustomUserCreationForm, RegisterForm, CountryForm, GenderForm
 from users.helper import captcha_validation, email_verification
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -178,7 +176,35 @@ class ForgotPasswordView(View):
 
 class ProfileView(View):
     def get(self, request):
+        user = request.user
+
         context = {
-            "form" : CountryForm
+            "form" : CountryForm({'country': user.country}),
+            "gender_form" : GenderForm({'gender': user.gender}),
+            "username": user.username,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "phone" : user.phone,
         }
         return render(request, 'home/profile.html', context)
+
+    def post(self, request):
+        data = request.POST
+        user = request.user
+        file = request.FILES.get("avatar")
+
+        if file:
+            user_avatar = UserAvatar.objects.get(user=user)
+            user_avatar.avatar = file
+            user_avatar.save()
+
+        user.first_name = data.get('first_name')
+        user.last_name = data.get('last_name')
+        user.phone = data.get('phone')
+        user.username = data.get('username')
+        user.gender = data.get('gender')
+        user.country = data.get('country')
+        user.save()
+
+        return redirect(request.META['HTTP_REFERER'])
+        # return render(request, 'home/profile.html', {})

@@ -96,3 +96,17 @@ class CountryForm(forms.Form):
     country.widget.attrs.update(
         {"class": "form-control form-control-lg form-control-solid mb-6", "placeholder": ""}
     )
+
+
+gender_choices= (
+    (0, ""),
+    (1, "Male"),
+    (2, "Female"),
+)
+
+class GenderForm(forms.Form):
+    gender = forms.ChoiceField(choices = gender_choices)
+
+    gender.widget.attrs.update(
+        {"class": "form-control form-control-lg form-control-solid mb-6", "placeholder": ""}
+    )

@@ -1,3 +1,4 @@
+from tkinter.tix import Tree
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
@@ -36,6 +37,11 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     username = models.CharField(max_length=200, blank=True)
     email = models.EmailField(_("email address"), unique=True)
+    first_name = models.CharField(max_length=250, blank=True, null=True)
+    last_name = models.CharField(max_length=250, blank=True, null=True)
+    phone = models.CharField(max_length=250, blank=True, null=True)
+    gender = models.CharField(max_length=250, blank=True, null=True)
+    country = models.CharField(max_length=250, blank=True, null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -59,7 +65,6 @@ class EmailVerification(models.Model):
         return self.user.email
 
 
-
 class UserAvatar(models.Model):
     user = models.OneToOneField(
         CustomUser, blank=False, unique=True, on_delete=models.CASCADE, related_name='avatar_user'
@@ -68,6 +73,7 @@ class UserAvatar(models.Model):
 
     def __str__(self):
         return self.user.email
+
 
 class Notification(models.Model):
     user = models.ForeignKey(CustomUser,
