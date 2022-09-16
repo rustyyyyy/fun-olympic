@@ -4,17 +4,19 @@
 {% block content %}
 
 <div class="container mt-15 mb-20">
-    <div class="row">
+    <div class="row no-gutters">
         {% for obj in post %}
         <div class="col-4">
-            <div class="card">
-                <div class="card-body">
-                    <img src="{{obj.image.url}}" height="200">
-                    <div class="mt-4">
-                        <p style="font-size: 18px;" class="p-0 m-0">{{obj.title}}</p>
-                    </div>
-                </div>
+            <!-- <div class="card">
+                <div class="card-body"> -->
+            <div class="mt-4 mr-2">
+                <img src="{{obj.image.url}}" class="img-fluid" />
             </div>
+            <!-- <div class="mt-4">
+                        <p style="font-size: 18px;" class="p-0 m-0">{{obj.title}}</p>
+                    </div> -->
+            <!-- </div>
+            </div> -->
         </div>
         {% endfor %}
     </div>

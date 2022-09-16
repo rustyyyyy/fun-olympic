@@ -1,5 +1,7 @@
+from email.mime import image
 from pyexpat import model
 from statistics import mode
+from tabnanny import verbose
 from turtle import title, update
 from unicodedata import category
 from main.settings import TIME_ZONE
@@ -104,3 +106,15 @@ class Athelete(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+class News(models.Model):
+    title = models.CharField(max_length=255, null=True)
+    image = models.ImageField(upload_to='news/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = "News"

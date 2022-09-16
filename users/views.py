@@ -1,4 +1,5 @@
 import email
+from multiprocessing import context
 import os
 from pathlib import Path
 from urllib import parse
@@ -174,3 +175,10 @@ class ForgotPasswordView(View):
             messages.error(request, "Invalid email")
 
         return render(request, 'auth/password-reset.html')
+
+class ProfileView(View):
+    def get(self, request):
+        context = {
+            "form" : CountryForm
+        }
+        return render(request, 'home/profile.html', context)

@@ -35,7 +35,7 @@ class ScheduleView(LoginRequiredMixin, View):
 
 class GalleryView(LoginRequiredMixin, View):
     def get(self, request):
-        post = Gallery.objects.all()
+        post = Gallery.objects.all().order_by('-id')
         context ={
             "post": post
         }
@@ -200,3 +200,4 @@ class AtheletesView(View):
     def get(self, request):
         obj = Athelete.objects.all()
         return render(request, 'home/athelete.html', {'obj':obj})
+

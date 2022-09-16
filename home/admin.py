@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import(
     Video, Views, Comment, Like, Features, Schedule, Gallery,
-    Athelete)
+    Athelete, News)
 
 
 @admin.register(Video)
@@ -47,3 +47,5 @@ class GalleryAdmin(admin.ModelAdmin):
 class AtheleteAdmin(admin.ModelAdmin):
     model = Athelete
     list_display = ["name", "id"]
+
+admin.site.register(News)
