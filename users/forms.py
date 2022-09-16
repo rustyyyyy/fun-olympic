@@ -89,6 +89,9 @@ class RegisterForm(forms.Form):
     password1.widget.attrs.update(
         {"class": "form-control form-control-lg form-control-solid", "placeholder": ""}
     )
+    password2.widget.attrs.update(
+        {"class": "form-control form-control-lg form-control-solid", "placeholder": ""}
+    )
 
 class CountryForm(forms.Form):
     country = CountryField().formfield(label="Country")

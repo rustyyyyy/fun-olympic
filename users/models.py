@@ -82,3 +82,12 @@ class Notification(models.Model):
     
     def __str__(self):
         return self.user.email
+
+class RestPasswordRequest(models.Model):
+    user = models.ForeignKey(CustomUser,
+        on_delete=models.CASCADE, related_name="reset_password_user")
+    is_active = models.BooleanField(default=False)
+    created_at = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.username

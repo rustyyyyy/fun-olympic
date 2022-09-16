@@ -43,11 +43,13 @@
                     <a href="/admin" class="btn" style="color: #223dff;">Admin Site</a>
                     {% endif %}
                     <span class="mr-3">{{request.user.username|upper}}</span>
+                    {% if request.user.is_authenticated %}
                     <a href="#" data-toggle="dropdown">
                         <!-- <i class="far fa-bell fa-2x"></i> -->
                         <img src="/media/images/bell.png" class="img-fluid" width="15" />
                         <span style="color: black;">{{noti_count}}</span>
                     </a>
+                    {% endif %}
                     {% if noti_data %}
                     <div class="dropdown-menu">
                         <h6 class="ml-2 mt-2">Notifications</h6>
@@ -80,6 +82,7 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
+                                    
                                     {% if request.user.is_authenticated %}
                                     {% if request.user.avatar_user.avatar %}
                                     <img class="h-30px w-30px rounded" src="{{request.user.avatar_user.avatar.url}}"

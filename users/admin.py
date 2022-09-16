@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserChangeForm, CustomUserCreationForm
-from .models import CustomUser, EmailVerification, UserAvatar, Notification
+from .models import CustomUser, EmailVerification, UserAvatar, Notification, RestPasswordRequest
 
 
 class CustomUserAdmin(UserAdmin):
@@ -71,3 +71,8 @@ class NotificationAdmin(admin.ModelAdmin):
         "user",
         "id",
     ]
+
+@admin.register(RestPasswordRequest)
+class RestPasswordRequestAdmin(admin.ModelAdmin):
+    model = RestPasswordRequest
+    list_display = ['user', 'is_active', 'created_at']

@@ -1,3 +1,4 @@
+import email
 import os
 from pathlib import Path
 from urllib import parse
@@ -9,7 +10,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.views import View
 
-from users.models import CustomUser, EmailVerification, UserAvatar
+from users.models import CustomUser, EmailVerification, UserAvatar, RestPasswordRequest
 from users.forms import CustomUserCreationForm, RegisterForm, CountryForm, GenderForm
 from users.helper import captcha_validation, email_verification
 
@@ -126,11 +127,15 @@ class LoginView(View):
 
 
             user = authenticate(username=username, password=password)
-
             if user.is_staff != True:
                 try:
-                    
                     email_verify = get_object_or_404(EmailVerification, user=user)
+                    reset_password_user = get_object_or_404(RestPasswordRequest, user=user)
+
+                    if reset_password_user.is_active == True:
+                        logout(request)
+                        return redirect(f'/reset-password/?email={username}')
+
                     if email_verify.verified != True:
                         logout(request)
                         messages.error(
@@ -168,7 +173,12 @@ class ForgotPasswordView(View):
         
         try:
             user = get_object_or_404(CustomUser, email=email)
-            messages.success(request, "Password reset sucessfully requested! try to login")
+
+            qs = RestPasswordRequest.objects.filter(user=user)
+            if not qs.exists():
+                RestPasswordRequest.objects.create(user=user)
+
+            messages.success(request, "Password reset sucessfully requested! try to login shortly")
         except Exception:
             messages.error(request, "Invalid email")
 
@@ -208,3 +218,52 @@ class ProfileView(View):
 
         return redirect(request.META['HTTP_REFERER'])
         # return render(request, 'home/profile.html', {})
+
+
+class ResetPasswordView(View):
+    def get(self, request):
+        email = request.GET.get('email')
+        return render(request, 'home/password-reset.html', {'email': email})
+
+    def post(self, request):
+        # email = request.POST.get('email')
+        # try:
+        #     user = get_object_or_404(CustomUser, email=email)
+        #     qs = RestPasswordRequest.objects.filter(user=user)
+
+        #     if not qs.exists():
+        #         RestPasswordRequest.objects.create(user=user)
+
+        #     messages.success(request, "Password reset sucessfully requested! try to login shortly")
+        # except Exception:
+        #     messages.error(request, "Invalid email")
+        data = request.POST
+        email = data.get('email')
+        password1 = data.get('password1')
+        password2 = data.get('password2')
+
+        if password1 != password2:
+            messages.error(request, "password and confirm password must match")
+
+        if len(password1) < 8:
+            messages.error(request, "password must be at least 8 characters")
+
+
+        if str(request.user) == 'AnonymousUser':
+            try:
+                user = CustomUser.objects.get(email=email)
+                reset_pass = RestPasswordRequest.objects.get(user=user)
+
+                if reset_pass.is_active:
+                    reset_pass.is_active= False
+                    reset_pass.save()
+
+                    user.set_password(password1)
+                    user.save()
+                    messages.success(request, "password changed sucessfully")
+                    return redirect('/login/')
+
+            except Exception:
+                messages.error(request, "password request not sucessful")
+
+        return render(request, 'home/password-reset.html')
