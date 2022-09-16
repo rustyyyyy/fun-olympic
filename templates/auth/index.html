@@ -43,7 +43,8 @@
 		.progress-bloc {
 			margin-bottom: 20px;
 		}
-		.progress{
+
+		.progress {
 			margin-top: 20px;
 			margin-bottom: 25px;
 		}
@@ -60,13 +61,14 @@
 	<div class="d-flex flex-column flex-root">
 		<!--begin::Authentication - Sign-up -->
 		<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed"
-			style="background-image: url({% static 'assets/media/illustrations/sigma-1/14.png' %})">
+			>
+			<!-- style="background-image: url({% static 'assets/media/illustrations/sigma-1/14.png' %})"> -->
 			<!--begin::Content-->
 			<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
 				<!--begin::Wrapper-->
-				<div class="w-lg-600px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+				<div class="w-lg-900px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
 					<!--begin::Form-->
-					<form class="form w-100" method="POST">
+					<form class="form w-140" method="POST">
 						{% csrf_token %}
 						<!--begin::Heading-->
 						<div class="mb-10 text-center">
@@ -89,32 +91,45 @@
 						</div>
 						<!--end::Separator-->
 
-						<!--begin::Input group-->
-						<div class="fv-row mb-7">
-							<label class="form-label fw-bolder text-dark fs-6">Username</label>
-							<input class="form-control form-control-lg form-control-solid" type="text" placeholder=""
-								name="username" autocomplete="off" required />
-						</div>
-						<div class="fv-row mb-7">
-							<label class="form-label fw-bolder text-dark fs-6">Email</label>
-							<input class="form-control form-control-lg form-control-solid" type="email" placeholder=""
-								name="email" autocomplete="off" required />
-						</div>
-						<div class="fv-row mb-7">
-							<label class="form-label fw-bolder text-dark fs-6">Phone</label>
-							<input class="form-control form-control-lg form-control-solid" type="number" placeholder=""
-								name="phone" autocomplete="off" required />
-						</div>
-						<div class="fv-row mb-7">
-							<label class="form-label fw-bolder text-dark fs-6">Gender</label>
-							<select class="form-select" aria-label="Default select example">
-								<option selected></option>
-								<option value="1">Male</option>
-								<option value="2">Female</option>
-							  </select>
-						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="form-label fs-6">First Name:</label>
+									<input type="text" name="first_name" value="{{first_name}}"
+										class="form-control form-control-lg form-control-solid mb-6">
+								</div>
+								<div class="form-group">
+									<label class="form-label fs-6">Last Name:</label>
+									<input type="text" name="last_name" value="{{last_name}}"
+										class="form-control form-control-lg form-control-solid mb-6">
+								</div>
+								<div class="form-group">
+									<label class="form-label fs-6">Phone:</label>
+									<input type="number" name="phone" value="{{phone}}"
+										class="form-control form-control-lg form-control-solid mb-6">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<!--begin::Input group-->
+								<div class="fv-row mb-7">
+									<label class="form-label fw-bolder text-dark fs-6">Username</label>
+									<input class="form-control form-control-lg form-control-solid" type="text"
+										placeholder="" name="username" autocomplete="off" required />
+								</div>
+								<div class="fv-row mb-7">
+									<label class="form-label fw-bolder text-dark fs-6">Email</label>
+									<input class="form-control form-control-lg form-control-solid" type="email"
+										placeholder="" name="email" autocomplete="off" required />
+								</div>
+								<div class="fv-row mb-7">
+									<label class="form-label fw-bolder text-dark fs-6">Gender</label>
+									{{gender_form.gender}}
+								</div>
 
+							</div>
+						</div>
 						{{countryform}}
+
 
 						<!--end::Input group-->
 						<!--begin::Input group-->

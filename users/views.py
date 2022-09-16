@@ -37,6 +37,7 @@ class SignupView(View):
                 "formm": RegisterForm,
                 "countryform" : CountryForm,
                 "site_key": site_key,
+                "gender_form": GenderForm
             },
         )
 
@@ -62,7 +63,7 @@ class SignupView(View):
 
             return render(
                 request,
-                "index.html",
+                "auth/index.html",
                 {"form": form, "formm": RegisterForm, "site_key": site_key},
             )
         return render(
@@ -130,11 +131,15 @@ class LoginView(View):
             if user.is_staff != True:
                 try:
                     email_verify = get_object_or_404(EmailVerification, user=user)
-                    reset_password_user = get_object_or_404(RestPasswordRequest, user=user)
 
-                    if reset_password_user.is_active == True:
-                        logout(request)
-                        return redirect(f'/reset-password/?email={username}')
+                    try:
+                        reset_password_user = get_object_or_404(RestPasswordRequest, user=user)
+
+                        if reset_password_user.is_active == True:
+                            logout(request)
+                            return redirect(f'/reset-password/?email={username}')
+                    except Exception:
+                        pass
 
                     if email_verify.verified != True:
                         logout(request)
@@ -204,9 +209,14 @@ class ProfileView(View):
         file = request.FILES.get("avatar")
 
         if file:
-            user_avatar = UserAvatar.objects.get(user=user)
-            user_avatar.avatar = file
-            user_avatar.save()
+            user_avatar = UserAvatar.objects.filter(user=user)
+            if user_avatar.exists():
+                user_avatar = user_avatar[0]
+                user_avatar.avatar = file
+                user_avatar.save()
+            else:
+                UserAvatar.objects.create(user=user, avatar=file)
+
 
         user.first_name = data.get('first_name')
         user.last_name = data.get('last_name')
