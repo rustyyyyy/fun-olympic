@@ -190,11 +190,11 @@ class VideoView(LoginRequiredMixin, View):
         }
         return render(request, 'home/video/index.html', context)
 
-class AboutView(View):
+class AboutView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'home/about.html', {})
 
-class AtheletesView(View):
+class AtheletesView(LoginRequiredMixin, View):
     def get(self, request):
         obj = Athelete.objects.all()
         return render(request, 'home/athelete.html', {'obj':obj})
