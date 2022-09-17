@@ -3,7 +3,6 @@ import re
 from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.utils.translation import gettext as _
-from pyexpat import model
 from zxcvbn_password import zxcvbn
 from zxcvbn_password.fields import PasswordConfirmationField, PasswordField
 from django_countries.fields import CountryField

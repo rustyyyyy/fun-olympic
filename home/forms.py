@@ -1,4 +1,3 @@
-from dataclasses import fields
 from .models import Comment
 from django.forms import ModelForm
 
