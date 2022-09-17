@@ -10,6 +10,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from users.forms import (CountryForm, CustomUserCreationForm, GenderForm,
                          RegisterForm)
 from users.helper import captcha_validation, email_verification
@@ -195,7 +196,7 @@ class ForgotPasswordView(View):
         return render(request, "auth/password-reset.html")
 
 
-class ProfileView(View):
+class ProfileView(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
 
