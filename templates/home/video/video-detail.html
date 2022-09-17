@@ -49,10 +49,30 @@
         {% endcomment %}
         <!--end::post-->
 
+        <!-- <script>
+            videojs('my-player', {
+              
+            })
+        </script> -->
+
         <div class="row">
             <div class="col-md-9">
                 <div class="card shadow-sm">
                     {% video video.video_link '100%x500' %}
+                    
+                    <!-- <video id="my-video"
+                    class="video-js"
+                    controls
+                    preload="auto" class="embed-responsive embed-responsive-16by9"
+                    data-setup="{'controls': true,
+                    'autopaly': false,
+                    'preload': 'auto'}"
+                    >
+                        <source src="{{video.file.url}}" type="video/mp4" />
+                    </video> -->
+                <!-- <video controls class="video" id="video" preload="metadata">
+                    <source src="{{video.file.url}}" type="video/mp4"></source>
+                </video> -->
                 </div>
                 <div class="mt-5">
                     <p style="font-size: 22px;">{{video.title}}</p>
@@ -71,7 +91,7 @@
                                 {% include 'home/video/like.html' %}
                             </span>
                         </span>
-                        
+
                         <span class="mr-4">
                             <a href="#" target="_blank" hx-post="{% url 'dislike-add' pk %}" hx-target="#dislike-count">
                                 <i class="far fa-thumbs-down fa-2x">&nbsp;</i>
@@ -89,7 +109,7 @@
                     </p>
                     <div class="mt-3">
                         <div id="comment-list">
-                           {% include 'home/video/comment.html' %}
+                            {% include 'home/video/comment.html' %}
                         </div>
                     </div>
 
@@ -100,12 +120,8 @@
                                 <label for="comment">Comment:</label>
                                 <textarea class="form-control" rows="5" id="comment_box" name="comment"></textarea>
                             </div>
-                            <button
-                                type="submit"
-                                hx-post="{% url 'video-add' pk %}"
-                                hx-target="#comment-list"
-                                class="btn btn-primary"
-                            >
+                            <button type="submit" hx-post="{% url 'video-add' pk %}" hx-target="#comment-list"
+                                class="btn btn-primary">
                                 Submit
                             </button>
                         </form>
@@ -134,5 +150,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}

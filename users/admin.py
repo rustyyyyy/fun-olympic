@@ -76,3 +76,6 @@ class NotificationAdmin(admin.ModelAdmin):
 class RestPasswordRequestAdmin(admin.ModelAdmin):
     model = RestPasswordRequest
     list_display = ['user', 'is_active', 'created_at']
+
+from django.contrib.auth.models import Group
+admin.site.unregister(Group)

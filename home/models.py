@@ -24,6 +24,7 @@ class Video(models.Model):
 
     video_link = EmbedVideoField()
     created_at = models.DateTimeField(auto_now_add=True)
+    file = models.FileField(upload_to="video/%y", null=True, blank=True)
 
     def __str__(self):
         return self.title
