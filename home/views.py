@@ -9,16 +9,28 @@ from django.views import View
 from config.models import Categories
 
 from .forms import CommentForm
-from .models import Comment, Features, Like, Video, Views, Schedule, Gallery, Athelete
+from .models import Comment, Features, Like, LiveVideo, Video, Views, Schedule, Gallery, Athelete
 
 
 # class HomeView(LoginRequiredMixin, View):
 class HomeView(View):
     def get(self, request):
         feat = Features.objects.all()
+        live = LiveVideo.objects.get(id=1)
+
+        # video = Video.objects.get(id=1)
+        # file = video.file
+
+        # videos = Video.objects.exclude(id=1)
+        # print(videos)
+
+        # for video in videos:
+        #     video.file = file
+        #     video.save()
 
         context = {
-            'feat': feat
+            'feat': feat,
+            'live' : live
         }
         return render(request, 'home/home.html', context)
 

@@ -5,6 +5,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 
 
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password, **extra_fields):
         """
@@ -90,3 +91,10 @@ class RestPasswordRequest(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def save(self, *args, **kwargs):
+        from users.helper import reset_email
+        if self.is_active == True:
+            reset_email(self.user.email, self.user)
+
+        super().save()

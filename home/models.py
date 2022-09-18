@@ -22,7 +22,7 @@ class Video(models.Model):
 
     video_link = EmbedVideoField()
     created_at = models.DateTimeField(auto_now_add=True)
-    # file = models.FileField(upload_to="video/%y", null=True, blank=True)
+    file = models.FileField(upload_to="video/%y", null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -124,3 +124,12 @@ class News(models.Model):
 
     class Meta:
         verbose_name_plural = "News"
+
+
+class LiveVideo(models.Model):
+    title = models.CharField(max_length=255, null=True)
+    file = models.FileField(upload_to="video/%y", null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title

@@ -43,11 +43,23 @@
     </div>
 </div>
 
+<div class="mt-10">
+    <div class="container">
+        <h4 style="font-size: 32px;">Live Videos</h4>
+        <div style="margin: 10px auto;">
+            <video width="320" height="240"  autoplay controls>
+                <source src="{{ live.file.url }}" type="video/mp4">
+                </source>
+            </video>
+        </div>
+    </div>
+</div>
+
 <div class="mt-15 mb-10">
     <div class="container">
         <h4 style="font-size: 32px;">News</h4>
 
-        <div class="mt-10">
+        <div class="mt-1">
             <div class="row">
                 {% for data in news %}
                 <div class="col-3">
@@ -60,7 +72,7 @@
     </div>
 </div>
 
-<div class="mt-15 mb-10">
+<div class="mt-15 mb-15">
     <div class="container">
         <h4 style="font-size: 32px;">Features</h4>
         <div class="mt-8">

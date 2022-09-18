@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import(
-    Video, Views, Comment, Like, Features, Schedule, Gallery,
+    LiveVideo, Video, Views, Comment, Like, Features, Schedule, Gallery,
     Athelete, News)
 
 
@@ -49,3 +49,5 @@ class AtheleteAdmin(admin.ModelAdmin):
     list_display = ["name", "id"]
 
 admin.site.register(News)
+
+admin.site.register(LiveVideo)
