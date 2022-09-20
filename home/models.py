@@ -109,6 +109,7 @@ class Athelete(models.Model):
     participants = models.CharField(max_length=255, null=True)
     team = models.CharField(max_length=255, null=True)
     image = models.ImageField(upload_to="athelete/images/")
+    is_liked = models.BooleanField(default=False, blank=True, null=True)
 
     def __str__(self):
         return str(self.name)

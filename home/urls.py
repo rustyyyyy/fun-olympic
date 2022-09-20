@@ -1,7 +1,8 @@
 from django.urls import path
 
 from .views import (DislikeView, GalleryView, HomeView, ScheduleView, AdminStatsView,
-                    VideoAddView, VideoDetailView, VideoView, likeView, AboutView, AtheletesView)
+                    VideoAddView, VideoDetailView, VideoView,
+                    AtheletelikeView, likeView, AboutView, AtheletesView)
 
 urlpatterns = [
     # nav urls
@@ -10,6 +11,7 @@ urlpatterns = [
     path("schedule", ScheduleView.as_view(), name="schedule"),
     path("about", AboutView.as_view(), name="about"),
     path("atheletes", AtheletesView.as_view(), name="atheletes"),
+    path("atheletes/like/<int:pk>", AtheletelikeView.as_view(), name="atheletes-add"),
     # video urls
     path("videos/", VideoView.as_view(), name="video"),
     path("videos/<int:pk>/", VideoDetailView.as_view(), name="video-detail"),
@@ -18,5 +20,4 @@ urlpatterns = [
     path("videos/<int:pk>/dislike/add/", DislikeView.as_view(), name="dislike-add"),
     # user analytics
     path("admin-stats/", AdminStatsView.as_view(), name="admin-stats"),
-
 ]

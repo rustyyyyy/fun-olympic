@@ -4,12 +4,12 @@ from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 from .models import CustomUser, EmailVerification, UserAvatar, Notification, RestPasswordRequest
 
-
+@admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ("id", "email", "username", "is_staff", "is_active", "date_joined")
+    list_display = ("email", "username", "is_staff", "is_active", "date_joined")
     fieldsets = (
         (None, {"fields": (
                 "username", "email", "password",
@@ -38,10 +38,11 @@ class CustomUserAdmin(UserAdmin):
     )
     ordering = ("email",)
 
+    def has_change_permission(self, request, obj=None):
+        return False
 
-admin.site.register(CustomUser, CustomUserAdmin)
 
-
+@admin.register(EmailVerification)
 class EmailVerificationAdmin(admin.ModelAdmin):
     model = EmailVerification
     list_display = [
@@ -52,10 +53,9 @@ class EmailVerificationAdmin(admin.ModelAdmin):
         "created_at",
         "updated_at",
     ]
-admin.site.register(EmailVerification, EmailVerificationAdmin)
 
 
-admin.site.register(UserAvatar)
+@admin.register(UserAvatar)
 class UserAvatarAdmin(admin.ModelAdmin):
     model = UserAvatar
     list_display = [

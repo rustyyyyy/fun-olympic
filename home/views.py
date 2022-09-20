@@ -240,3 +240,17 @@ class AdminStatsView(LoginRequiredMixin, View):
         }
         return render(request, 'home/admin-stats.html', context)
 
+class AtheletelikeView(LoginRequiredMixin, View):
+    def post(self, request, pk=None):
+
+        ath = get_object_or_404(Athelete, id=pk)
+        if ath.is_liked:
+            ath.is_liked = False
+        else:
+            ath.is_liked = True
+        ath.save()
+
+        context = {
+            'obj' : {"is_liked": ath.is_liked}
+        }
+        return render(request, 'home/athelete-fav.html', context)

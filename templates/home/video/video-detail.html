@@ -1,5 +1,4 @@
 {% extends "home/base.html" %}
-{% load embed_video_tags %}
 {% load static %}
 
 {% block content %}
@@ -10,69 +9,15 @@
     </div>
 </div>
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl mb-15">
-    <!--begin::Post-->
     <div class="content flex-row-fluid" id="kt_content">
-        <!--begin::Row-->
-        <!-- <div class="row g-5 g-xl-8"> -->
-        <!--begin::post-->
-
-        {% comment %}
-
-        {% for data in page_obj %}
-        <div class="col-xl-4">
-            <!--begin::Mixed Widget 5-->
-            <a href="{% url 'video-detail' data.id %}">
-                <div class="card card-xl-stretch mb-xl-3">
-                    <div class="card-body d-flex flex-column">
-                        <!--begin::video image-->
-                        <img src="{{ data.image.url }}" class="card-img-top">
-                        <!--end::video image-->
-                        <div class="mt-5">
-                            <div class="d-flex flex-stack mb-5">
-                                <div class="d-flex align-items-center me-2">
-                                    <div>
-                                        <!-- <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bolder">Top
-                                            Authors</a> -->
-                                        <h4 class="fs-6 text-gray-800 text-hover-primary fw-bolder">{{data.title}}
-                                        </h4>
-                                        <!-- <div class="fs-7 text-muted fw-bold mt-1">Ricky Hunt, Sandra
-                                            Trepp</div> -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        {% endfor %}
-        {% endcomment %}
-        <!--end::post-->
-
-        <!-- <script>
-            videojs('my-player', {
-              
-            })
-        </script> -->
 
         <div class="row">
             <div class="col-md-9">
                 <div class="card shadow-sm">
-                    {% video video.video_link '100%x500' %}
-                    
-                    <!-- <video id="my-video"
-                    class="video-js"
-                    controls
-                    preload="auto" class="embed-responsive embed-responsive-16by9"
-                    data-setup="{'controls': true,
-                    'autopaly': false,
-                    'preload': 'auto'}"
-                    >
-                        <source src="{{video.file.url}}" type="video/mp4" />
-                    </video> -->
-                <!-- <video controls class="video" id="video" preload="metadata">
-                    <source src="{{video.file.url}}" type="video/mp4"></source>
-                </video> -->
+                <video  class="embed-responsive"  controls>
+                    <source src="{{ video.file.url }}" type="video/mp4">
+                    </source>
+                </video>
                 </div>
                 <div class="mt-5">
                     <p style="font-size: 22px;">{{video.title}}</p>

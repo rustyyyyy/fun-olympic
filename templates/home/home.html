@@ -6,10 +6,10 @@
 <div class="mt-10">
     <div class="container">
         <h4 style="font-size: 32px;">Live Videos</h4>
-        <div>
+        <div >
             {% for video in live %}
-            <video width="320" height="240" autoplay controls>
-                <source src="{{ video.file.url }}" type="video/mp4">
+            <video  width="320" height="240" autoplay controls>
+                <source  src="{{ video.file.url }}" type="video/mp4">
                 </source>
             </video>
             <h4 class="mt-2"> {{video.title}}</h4>
