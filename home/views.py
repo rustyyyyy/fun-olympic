@@ -7,16 +7,17 @@ from django.shortcuts import get_object_or_404, render
 from django.views import View
 
 from config.models import Categories
+from users.models import CustomUser
 
 from .forms import CommentForm
-from .models import Comment, Features, Like, LiveVideo, Video, Views, Schedule, Gallery, Athelete
+from .models import Comment, Features, Like, LiveVideo, News, Video, Views, Schedule, Gallery, Athelete
 
 
 # class HomeView(LoginRequiredMixin, View):
 class HomeView(View):
     def get(self, request):
         feat = Features.objects.all()
-        live = LiveVideo.objects.get(id=1)
+        live = LiveVideo.objects.all()
 
         # video = Video.objects.get(id=1)
         # file = video.file
@@ -27,6 +28,12 @@ class HomeView(View):
         # for video in videos:
         #     video.file = file
         #     video.save()
+
+        # ath = Athelete.objects.get(id=1)
+        # print(ath)
+        # ath2 = ath
+        # ath2.save()
+
 
         context = {
             'feat': feat,
@@ -210,4 +217,26 @@ class AtheletesView(LoginRequiredMixin, View):
     def get(self, request):
         obj = Athelete.objects.all()
         return render(request, 'home/athelete.html', {'obj':obj})
+
+
+class AdminStatsView(LoginRequiredMixin, View):
+    def get(self, request):
+        users = CustomUser.objects.all()
+        admin_users = users.filter(is_superuser=True)
+        user = users.exclude(is_superuser=True)
+
+        video = Video.objects.all()
+        news = News.objects.all()
+        sche = Schedule.objects.all()
+
+        context = {
+            'users': users.count(),
+            'admin_users': admin_users.count(),
+            'user': user.count(),
+            'video': video.count(),
+            'news': news.count(),
+            'sche': sche.count(),
+
+        }
+        return render(request, 'home/admin-stats.html', context)
 

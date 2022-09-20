@@ -22,9 +22,12 @@
     <link href="{% static 'assets/css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
 
-    <script src="https://unpkg.com/htmx.org@1.8.0" integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.0"
+        integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc"
+        crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -35,9 +38,12 @@
 
     <script>
         document.body.addEventListener('htmx:configRequest', (event) => {
-          event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
         })
-      </script>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    {% block extra_head %}{% endblock %}
 </head>
 <script>
     var state_xhr = new XMLHttpRequest();

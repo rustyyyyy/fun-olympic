@@ -1,0 +1,91 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container my-10">
+    <h4 style="font-size: 28px;" class="text-center"> User Stats</h4>
+    <hr>
+    <div class="text-center">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 style="font-size: 22px; font-weight: 400;"> All Users: {{users}}</h4>
+                <h4 style="font-size: 22px; font-weight: 400;"> Total Admin: {{admin_users}}</h4>
+                <h4 style="font-size: 22px; font-weight: 400;"> Total Users: {{user}}</h4>
+            </div>
+            <div class="col-md-6">
+                <h4 style="font-size: 22px; font-weight: 400;"> Total Videos: {{video}}</h4>
+                <h4 style="font-size: 22px; font-weight: 400;"> Total News: {{news}}</h4>
+                <h4 style="font-size: 22px; font-weight: 400;"> Total Schedules: {{sche}}</h4>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="mt-10">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div id="chart" class="" style="background-color: white;"></div>
+            </div>
+        </div>
+        <script>
+            var y = [
+                11, 22, 32, 56
+            ]
+            var x = [
+                '2022-01-3',
+                '2022-02-4',
+                '2022-03-3',
+                '2022-03-3',
+            ]
+
+            chartJS(x, y);
+
+            function chartJS(x, y) {
+                var options = {
+                    series: [{
+                        name: "Total Count",
+                        data: y,
+                    }],
+                    chart: {
+                        height: 320,
+                        type: 'line',
+                    },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 10,
+                            dataLabels: {
+                                position: 'top', // top, center, bottom
+                            },
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: 'straight'
+                    },
+
+                    title: {
+                        text: "Total User",
+                        align: 'left'
+                    },
+                    labels: x,
+                    xaxis: {
+                        labels: {
+                            show: false,
+                        }
+                    },
+                    yaxis: {
+                        opposite: true
+                    },
+                    legend: {
+                        horizontalAlign: 'left'
+                    }
+                };
+                var chart = new ApexCharts(document.querySelector("#chart"), options);
+                chart.render();
+            }
+        </script>
+    </div>
+</div>
+{% endblock %}

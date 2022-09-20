@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (DislikeView, GalleryView, HomeView, ScheduleView,
+from .views import (DislikeView, GalleryView, HomeView, ScheduleView, AdminStatsView,
                     VideoAddView, VideoDetailView, VideoView, likeView, AboutView, AtheletesView)
 
 urlpatterns = [
@@ -16,4 +16,7 @@ urlpatterns = [
     path("videos/<int:pk>/add/", VideoAddView.as_view(), name="video-add"),
     path("videos/<int:pk>/like/add/", likeView.as_view(), name="like-add"),
     path("videos/<int:pk>/dislike/add/", DislikeView.as_view(), name="dislike-add"),
+    # user analytics
+    path("admin-stats/", AdminStatsView.as_view(), name="admin-stats"),
+
 ]

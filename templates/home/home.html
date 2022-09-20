@@ -3,7 +3,22 @@
 
 {% block content %}
 
-<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+<div class="mt-10">
+    <div class="container">
+        <h4 style="font-size: 32px;">Live Videos</h4>
+        <div>
+            {% for video in live %}
+            <video width="320" height="240" autoplay controls>
+                <source src="{{ video.file.url }}" type="video/mp4">
+                </source>
+            </video>
+            <h4 class="mt-2"> {{video.title}}</h4>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- <div id="myCarousel" class="carousel slide mt-15" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -41,19 +56,15 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-<div class="mt-10">
-    <div class="container">
-        <h4 style="font-size: 32px;">Live Videos</h4>
-        <div style="margin: 10px auto;">
-            <video width="320" height="240"  autoplay controls>
-                <source src="{{ live.file.url }}" type="video/mp4">
-                </source>
-            </video>
-        </div>
-    </div>
-</div>
+<!-- <div style="background-image: url('/media/images/home-1.jpg'); height: 500px; background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;">
+
+</div> -->
+<img class="my-10 w-100" src="/media/images/home-1.jpg" alt="">
 
 <div class="mt-15 mb-10">
     <div class="container">

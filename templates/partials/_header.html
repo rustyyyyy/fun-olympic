@@ -40,7 +40,8 @@
 
                 <div>
                     {% if request.user.is_superuser %}
-                    <a href="/admin" class="btn" style="color: #223dff;">Admin Site</a>
+                    <a href="/admin" class="btn pr-0 mr-0" style="color: #223dff;">Admin Site</a>
+                    <a href="/admin-stats/" class="btn" >Stats</a>
                     {% endif %}
                     <span class="mr-3">{{request.user.username|upper}}</span>
                     {% if request.user.is_authenticated %}
