@@ -3,9 +3,25 @@
 
 {% block content %}
 
-<div class="mt-10">
+
+<div class="container mt-15">
+    <div class="row">
+        <div class="col-md-6">
+            <p style="font-size: 18px;">The <span style="color: #070bcb;"> Youth Olympic Games</span> are an
+                international sports, cultural, and educational event for talented
+                young athletes.</p>
+            <a class="btn text-white py-6 w-100 mt-10" style="background-color: #070bcb; font-size: 18px;"
+                href="https://olympics.com/en/olympic-games/youth-olympic-games">Learn more about Youth
+                Olympic</a>
+        </div>
+        <div class="col-md-6">
+            <img class="img-fluid rounded" src="/media/images/youtholympicgames.webp" alt="" srcset="">
+        </div>
+    </div>
+</div>
+<div class="mt-5">
     <div class="container">
-        <h4 style="font-size: 32px;" class="mb-6">Live Videos</h4>
+        <h4 style="font-size: 32px; border-left: 5px solid blue;" class="mb-6">&nbsp;Live Videos</h4>
         <div class="row">
             {% for data in live %}
             <div class="col-4">
@@ -71,7 +87,7 @@
     background-size: cover;">
 
 </div> -->
-<img class="my-10 w-100" src="/media/images/home-1.png" alt="">
+<img class="my-15 w-100" src="/media/images/home-1.png" alt="">
 
 <div class="mt-15 mb-10">
     <div class="container">
@@ -82,7 +98,7 @@
                 {% for data in news %}
                 <div class="col-3">
                     <img class="img-fluid mt-5" src="{{data.image.url}}" width="300">
-                    <h5 class="mt-4" style="font-size: 18px; width: 300px; ">{{data.title}}</h5>
+                    <p class="mt-4" style="font-size: 18px; ">{{data.title}}</h5>
                 </div>
                 {% endfor %}
             </div>
@@ -92,7 +108,7 @@
 
 <div class="mt-15 mb-15">
     <div class="container">
-        <h4 style="font-size: 32px;">Features</h4>
+        <h4 style="font-size: 32px;">Sports</h4>
         <div class="mt-8">
             <div class="row">
                 {% for data in feat %}
