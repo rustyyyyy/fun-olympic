@@ -129,6 +129,7 @@ class News(models.Model):
 
 class LiveVideo(models.Model):
     title = models.CharField(max_length=255, null=True)
+    image = models.ImageField(upload_to="news/", null=True)
     file = models.FileField(upload_to="video/%y", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
