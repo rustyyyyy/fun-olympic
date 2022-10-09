@@ -38,8 +38,6 @@ class CustomUserAdmin(UserAdmin):
     )
     ordering = ("email",)
 
-    def has_change_permission(self, request, obj=None):
-        return False
 
 
 @admin.register(EmailVerification)
